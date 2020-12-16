@@ -83,33 +83,18 @@ cd ~; cd ~/AgentSmithCoin/src; chmod a+x obj; chmod a+x leveldb/build_detect_pla
 
 ### Create config file for daemon
 ```
-cd ~; sudo ufw allow 22448/tcp; sudo ufw allow 22442/tcp; sudo mkdir ~/.ASC; cat << "CONFIG" >> ~/.ASC/AgentSmithCoin.conf
+cd ~; sudo ufw allow 92012/tcp; sudo ufw allow 12351/tcp; sudo mkdir ~/.ASC; cat << "CONFIG" >> ~/.ASC/AgentSmithCoin.conf
 listen=1
 server=1
 daemon=1
 testnet=0
 rpcuser=agentsmithcoinuser
 rpcpassword=SomeCrazyVeryVerySecurePasswordHere
-rpcport=22442
-port=22448
+rpcport=12351
+port=92012
 rpcconnect=127.0.0.1
 rpcallowip=127.0.0.1
-addnode=198.50.180.207
-addnode=85.255.7.52
-addnode=195.181.211.221
-addnode=176.31.205.41
-addnode=116.14.167.86
-addnode=167.99.171.227
-addnode=174.107.102.219
-addnode=176.9.156.236
-addnode=198.50.180.193
-addnode=94.130.64.143
-addnode=145.239.65.6
-addnode=108.61.175.156
-addnode=46.4.27.201
-addnode=149.56.154.75
-addnode=50.46.99.238
-addnode=159.89.114.40
+
 
 CONFIG
 chmod 700 ~/.ASC/AgentSmithCoin.conf; chmod 700 ~/.ASC; ls -la ~/.ASC
