@@ -73,7 +73,7 @@ cd ~; sudo cp -r /home/ftpuser/ftp/files/ASC-clean/. ~/AgentSmithCoin
 
 ### GitHub pull RECOMMENDED
 ```
-cd ~; git clone https://github.com/CryptoCoderz/AgentSmithCoin
+cd ~; git clone https://github.com/SaltineChips/AgentSmithCoin
 ```
 
 ### Build AgentSmithCoin daemon
@@ -123,7 +123,7 @@ Development Process
 -------------------
 
 The `master` branch is regularly built and tested, but is not guaranteed to be
-completely stable. [Tags](https://github.com/CryptoCoderz/AgentSmithCoin/tags) are created
+completely stable. [Tags](https://github.com/SaltineChips/AgentSmithCoin/tags) are created
 regularly to indicate new official, stable release versions of AgentSmithCoin [ASC].
 
 The contribution workflow is described in [CONTRIBUTING.md](CONTRIBUTING.md).
