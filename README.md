@@ -46,7 +46,7 @@ General Info:
 
 		Block Spacing: 5 Minutes
 		Stake Minimum Age: 90 Confirmations (PoS-v3) | 2 Hours (PoS-v2)
-		Port: 92012
+		Port: 22012
 		RPC Port: 12351
 
 Compiling AgentSmithCoin daemon on Ubunutu 18.04 LTS Bionic
@@ -85,7 +85,7 @@ cd ~; cd ~/AgentSmithCoin/src; chmod a+x obj; chmod a+x leveldb/build_detect_pla
 
 ### Create config file for daemon
 ```
-cd ~; sudo ufw allow 92012/tcp; sudo ufw allow 12351/tcp; sudo mkdir ~/.ASC; cat << "CONFIG" >> ~/.ASC/AgentSmithCoin.conf
+cd ~; sudo ufw allow 22012/tcp; sudo ufw allow 12351/tcp; sudo mkdir ~/.ASC; cat << "CONFIG" >> ~/.ASC/AgentSmithCoin.conf
 listen=1
 server=1
 daemon=1
@@ -93,7 +93,7 @@ testnet=0
 rpcuser=agentsmithcoinuser
 rpcpassword=SomeCrazyVeryVerySecurePasswordHere
 rpcport=12351
-port=92012
+port=22012
 rpcconnect=127.0.0.1
 rpcallowip=127.0.0.1
 
