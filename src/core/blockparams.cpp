@@ -419,7 +419,10 @@ int64_t GetProofOfWorkReward(int64_t nHeight, int64_t nFees)
     }
     if(nHeight > nReservePhaseStart) {
         if(pindexBest->nMoneySupply < (nBlockRewardReserve * nReservePhaseEnd)) {
-            nSubsidy = nBlockRewardReserve;
+            if(nHeight <= 40)
+                nSubsidy = nBlockRewardReserve;
+            else
+                nSubsidy = 671999 * COIN;
         }
     }
     // hardCap v2.1
@@ -442,7 +445,10 @@ int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
 
     if(pindexBest->nHeight > nReservePhaseStart) {
         if(pindexBest->nMoneySupply < (nBlockRewardReserve * nReservePhaseEnd)) {
-            nSubsidy = nBlockRewardReserve;
+            if(pindexBest->nHeight <= 40)
+                nSubsidy = nBlockRewardReserve;
+            else
+                nSubsidy = 671999 * COIN;
         }
     }
 

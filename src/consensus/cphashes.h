@@ -6,15 +6,15 @@
 
 #include "primitives/bignum.h"
 
-static const uint256 CheckBlock_0001("0x0000068c30d404af5c95bc7caa3c464447e63ac3d6fc69d071b3965818487ad1");
-static const uint256 CheckBlock_0002("0x00000932f50079a2bbe960fc72f0f5e65e779b735c2a1130ad4e16f57bdf9c46");
-static const uint256 CheckBlock_0003("0x0000022f03fd526a65d7a0820905a2c74af56578b54150bab078d366b5156ab9");
+static const uint256 CheckBlock_0001("0x00005e6b147bc52e597c142b8af4cd19bd5d4d93e5b5737e3033a33e80e19606");
+static const uint256 CheckBlock_0002("0x00001f36b5507fdf8d4c575d44ec4753ae8015f7c6e882667f043472b55b3345");
+static const uint256 CheckBlock_0003("0x00003013dcbead1b79743bbcceeee4d6b7df312c17b4106fa0ae493a234ad8e0");
 static const uint256 CheckBlock_0004("0x000004765c62b759617faf01b8fa300e8668f5fa103af465ab73dc9de8d19247");
 
 
 static const int64_t CheckHeight_0001 = 1;
 static const int64_t CheckHeight_0002 = 10;
 static const int64_t CheckHeight_0003 = 20;
-static const int64_t CheckHeight_0004 = 100;
+static const int64_t CheckHeight_0004 = 41;
 
 #endif
