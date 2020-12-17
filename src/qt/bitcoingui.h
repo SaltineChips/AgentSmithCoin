@@ -11,10 +11,7 @@ class ClientModel;
 class WalletModel;
 class TransactionView;
 class OverviewPage;
-class ClientControlPage;
-class MessagePage;
 class BlockBrowser;
-class SiteOnChain;
 class AddressBookPage;
 class SendCoinsDialog;
 class SignVerifyMessageDialog;
@@ -69,10 +66,7 @@ private:
     AddressBookPage *addressBookPage;
     AddressBookPage *receiveCoinsPage;
     SendCoinsDialog *sendCoinsPage;
-    ClientControlPage *clientcontrolPage;
-    MessagePage *messagePage;
     BlockBrowser *blockbrowser;
-    SiteOnChain *siteonChain;
     SignVerifyMessageDialog *signVerifyMessageDialog;
 
     QLabel *labelEncryptionIcon;
@@ -84,10 +78,7 @@ private:
 
     QMenuBar *appMenuBar;
     QAction *overviewAction;
-    QAction *clientcontrolAction;
-    QAction *messageAction;
     QAction *blockbrowserAction;
-    QAction *siteonChainAction;
     QAction *historyAction;
     QAction *quitAction;
     QAction *sendCoinsAction;
@@ -166,14 +157,8 @@ public slots:
 private slots:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
-    /** Switch to clientcontrol(management) page */
-    void gotoClientControlPage();
-    /** Switch to message(encrypted-emailing) page */
-    void gotoMessagePage();
     /** Switch to chain info(explorer) page */
     void gotoBlockBrowser();
-    /** Switch to siteonchain(websites on the blockchain) page */
-    void gotoSiteOnChain();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
     /** Switch to address book page */
