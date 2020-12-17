@@ -1077,7 +1077,8 @@ void ReadConfigFile(map<string, string>& mapSettingsRet,
                fprintf(ConfFile, "port=92012\n");
                fprintf(ConfFile, "rpcport=12351\n");
                fprintf(ConfFile, "rpcconnect=127.0.0.1\n");
-               //fprintf(ConfFile, "addnode=\n");
+               fprintf(ConfFile, "addnode=159.203.14.113\n");
+               fprintf(ConfFile, "addnode=159.203.14.113:92012\n");
 
                fclose(ConfFile);
 

@@ -9,11 +9,11 @@
 /** Minimum nCoinAge required to stake PoS (v2) */
 static const unsigned int nStakeMinAge = 2 * 60 * 60; // 2 hours
 /** Minimum nCoinAge required to stake PoS (v3) */
-static const int nStakeMinConfirmations = 90; // 5(minutes) × 90(confirms) ÷ 60(minutes) = 7.5 hours
+static const int nStakeMinConfirmations = 20; // 5(minutes) × 20(confirms) ÷ 60(minutes) = less than 2 hours
 /** Time to elapse before new modifier is computed */
 static const unsigned int nModifierInterval = 10 * 60;
 /** PoS Subsidy */
-static const int64_t COIN_YEAR_REWARD = 10 * CENT; // Miscalculated (2 day hinderance, no major issues)
+static const int64_t COIN_YEAR_REWARD = 10 * CENT; // 10% attempted annual stake
 /** Block spacing preferred */
 static const int64_t BLOCK_SPACING = 5 * 60; // 5 minute block time (average)
 /** Block spacing minimum */
@@ -29,6 +29,6 @@ static const int64_t nBlockPoWReward = 10 * COIN;
 /** Invalid block subsidy */
 static const int64_t nBlockRewardBuffer = 0.1 * COIN;
 /** Coinbase transaction outputs can only be spent after this number of new blocks (network rule) */
-static const int nCoinbaseMaturity = 60;
+static const int nCoinbaseMaturity = 10;
 
 #endif

@@ -103,23 +103,11 @@ public:
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x88)(0xAD)(0xE4).convert_to_container<std::vector<unsigned char> >();
 
         // AgentSmithCoin dns seeds
-        //vSeeds.push_back(CDNSSeedData("cryptocoderz.com",  "esp.cryptocoderz.com"));
+        //vSeeds.push_back(CDNSSeedData("name",  "address"));
 
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
-        // Initial block spacing, attempted 40 second block time
-        nTargetSpacing = 1 * 40;
-        // Block rate reduced for ~40 Second block times
-        // Due to hybrid mining blocktime still varied wildly during
-        // this time between 15 seconds and 1 minute
-        if(nBestHeight > nBlocktimeregress)
-            nTargetSpacing = 2.5 * 60;
-        // Block rate reduced for 3-5 Minute block times
-        // this is in conjunction with DGW-v3 retarget fork
-        if(nBestHeight > nGravityFork)
-            nTargetSpacing = BLOCK_SPACING * 1;
-        nTargetTimespan = 10 * nTargetSpacing;
-        nStartPoSBlock = 80; // Delay PoS start until swap start
+        nStartPoSBlock = 5; // Buffer 5 blocks
 
     }
 
@@ -194,7 +182,6 @@ public:
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
-        nTargetSpacing = 20;
         nStartPoSBlock = 3;
     }
     virtual Network NetworkID() const { return CChainParams::TESTNET; }
