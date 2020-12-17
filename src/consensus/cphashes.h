@@ -9,7 +9,7 @@
 static const uint256 CheckBlock_0001("0x00005e6b147bc52e597c142b8af4cd19bd5d4d93e5b5737e3033a33e80e19606");
 static const uint256 CheckBlock_0002("0x00001f36b5507fdf8d4c575d44ec4753ae8015f7c6e882667f043472b55b3345");
 static const uint256 CheckBlock_0003("0x00003013dcbead1b79743bbcceeee4d6b7df312c17b4106fa0ae493a234ad8e0");
-static const uint256 CheckBlock_0004("0x000004765c62b759617faf01b8fa300e8668f5fa103af465ab73dc9de8d19247");
+static const uint256 CheckBlock_0004("0x0000a47723c672101d0fe568685f84480987c1ca27bea2cf8cda3e7017d3bb0d");
 
 
 static const int64_t CheckHeight_0001 = 1;
