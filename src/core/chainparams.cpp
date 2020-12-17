@@ -54,7 +54,7 @@ public:
         pchMessageStart[2] = 0x21;
         pchMessageStart[3] = 0xaf;
         vAlertPubKey = ParseHex("01a22ffae96c9056be6b659c91a94fbfebeb5d5257feac3548695c62f7c2f812356131a669df3be611393f454852a2d08c6314bba5ca3cbe5616262da3d4a6efac");
-        nDefaultPort = 92012; // When China Uncensored was started
+        nDefaultPort = 22012; // Hong Kong Protests
         nRPCPort = 12351; // Total number of episodes available at http://www.chinauncensored.tv/episodes/
         bnProofOfWorkLimit = CBigNum(~uint256(0) >> 16);
         bnProofOfStakeLimit = CBigNum(~uint256(0) >> 16);
@@ -142,7 +142,7 @@ public:
         bnProofOfStakeLimit = CBigNum(~uint256(0) >> 14);
 
         vAlertPubKey = ParseHex("01a22531e96c9056be6b123561a94fbfebeb5d5257fe044b88695c62f7c2f81f85d131a669df3be611393f45485457698c6314bba5ca3cbe5616262db3d4a6efac");
-        nDefaultPort = 22019; // Hong Kong Protests
+        nDefaultPort = 92019; // When China Uncensored was started
         nRPCPort = 30620; // 30^th day of June, 2020 we all know what happened on this date.
         strDataDir = "testnet";
 
