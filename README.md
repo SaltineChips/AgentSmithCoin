@@ -1,7 +1,15 @@
 AgentSmithCoin [ASC] 2020 integration/staging tree
 ===============================================
 
-https://agentsmithcoin.xyz/
+Website
+Fan made (This blockchain): https://agentsmithcoin.xyz/
+China Uncensored: http://www.chinauncensored.tv/
+
+
+
+Youtube (OFFICIAL LINK)
+America Uncovered: https://www.youtube.com/channel/UC_7vFlErTHxVD-IFNB-BFCg
+China Uncensored: https://www.youtube.com/channel/UCgFP46yVT-GG4o1TgXn-04Q
 
 What is the AgentSmithCoin [ASC] Blockchain?
 ------------------------------------
@@ -11,7 +19,7 @@ What is the AgentSmithCoin [ASC] Blockchain?
 AgentSmithCoin is a blockchain project with the goal of offering Chris Chappel something to laugh about! We hope that you enjoy this silly thing!
 
 ### Blockchain Technology
-Blockchain technology has the capabilities to change a variety of things in the world and can also be the backbone of a new internet. One place that blockchain technology has not had an impact on yet is website on the blockchain. However, AgentSmithCoin is trying to change that and is well on their way to doing so.
+Blockchain technology has the capabilities to change a variety of things in the world and can also be the backbone of a new internet. One place that blockchain technology has not had an impact on yet is website on the blockchain. However, AgentSmithCoin is a fan made blockchain to support the awesome folks at America Uncovered/China Uncensored.
 
 ### Custom Difficulty Retarget Algorithm “VRX”
 VRX is designed from the ground up to integrate properly with the Velocity parameter enforcement system to ensure users no longer receive orphan blocks.
@@ -26,7 +34,7 @@ Specifications and General info
 ------------------
 AgentSmithCoin uses:
 
-		Boost1.72,
+		Boost1.73,
 		OR Boost1.58,
 		OpenSSL1.02u,
 		OR OpenSSL1.1x,
@@ -38,8 +46,8 @@ General Info:
 
 		Block Spacing: 5 Minutes
 		Stake Minimum Age: 90 Confirmations (PoS-v3) | 2 Hours (PoS-v2)
-		Port: 22448
-		RPC Port: 22442
+		Port: 92012
+		RPC Port: 12351
 
 Compiling AgentSmithCoin daemon on Ubunutu 18.04 LTS Bionic
 ---------------------------
