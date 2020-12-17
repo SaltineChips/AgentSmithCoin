@@ -330,7 +330,7 @@ void OverviewPage::updatePoSstat(bool stat)
             nWeight = pwalletMain->GetStakeWeight();
         uint64_t nNetworkWeight = GetPoSKernelPS();
         bool staking = nLastCoinStakeSearchInterval && nWeight;
-        uint64_t nExpectedTime = staking ? (Params().TargetSpacing() * nNetworkWeight / nWeight) : 0;
+        uint64_t nExpectedTime = staking ? (BLOCK_SPACING * nNetworkWeight / nWeight) : 0;
         QString Qseconds = " Second(s)";
         if(nExpectedTime > 86399)
         {

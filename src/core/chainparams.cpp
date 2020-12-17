@@ -54,10 +54,10 @@ public:
         pchMessageStart[2] = 0x21;
         pchMessageStart[3] = 0xaf;
         vAlertPubKey = ParseHex("01a22ffae96c9056be6b659c91a94fbfebeb5d5257feac3548695c62f7c2f812356131a669df3be611393f454852a2d08c6314bba5ca3cbe5616262da3d4a6efac");
-        nDefaultPort = 92012; // When China Uncensored was started
+        nDefaultPort = 22012; // Hong Kong Protests
         nRPCPort = 12351; // Total number of episodes available at http://www.chinauncensored.tv/episodes/
-        bnProofOfWorkLimit = CBigNum(~uint256(0) >> 20);
-        bnProofOfStakeLimit = CBigNum(~uint256(0) >> 20);
+        bnProofOfWorkLimit = CBigNum(~uint256(0) >> 16);
+        bnProofOfStakeLimit = CBigNum(~uint256(0) >> 16);
 
         const char* pszTimestamp = "Selenium Java – How to avoid bot detection by websites when using chromedriver.exe | Mark | December 15, 2020";
         std::vector<CTxIn> vin;
@@ -73,19 +73,19 @@ public:
         genesis.nVersion = 1;
         genesis.nTime    = 1608156000;
         genesis.nBits    = bnProofOfWorkLimit.GetCompact();
-        genesis.nNonce   = 0;
+        genesis.nNonce   = 19022;
         /** Genesis Block MainNet */
         /*
         Hashed MainNet Genesis Block Output
-        block.hashMerkleRoot == cb39b483854e186064521b110b88a59ef273902f5dbc6f8dc0ed9e9982d285f4
-        block.nTime = 1597839206
-        block.nNonce = 2782705
-        block.GetHash = 00000713be12f38f916c01efee76e609589c92732c1ec0925801746c0e147019
+        block.hashMerkleRoot == 456f2990431d2819e9c99a7bf13143c442d9fee2407cda3628ce77c6b096577f
+        block.nTime = 1608156000
+        block.nNonce = 19022
+        block.GetHash = 0000a2605e721d0ef577f639c064439fe290117b82011122525256f1ad847a1c
         */
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x"));
-        assert(genesis.hashMerkleRoot == uint256("0x"));
+        assert(hashGenesisBlock == uint256("0x0000a2605e721d0ef577f639c064439fe290117b82011122525256f1ad847a1c"));
+        assert(genesis.hashMerkleRoot == uint256("0x456f2990431d2819e9c99a7bf13143c442d9fee2407cda3628ce77c6b096577f"));
 
         /** DEPRICATED IN QT 5.6+ (To compile on Qt5.5.1 and lower uncomment  */
         /*
@@ -103,23 +103,11 @@ public:
         base58Prefixes[EXT_SECRET_KEY] = boost::assign::list_of(0x04)(0x88)(0xAD)(0xE4).convert_to_container<std::vector<unsigned char> >();
 
         // AgentSmithCoin dns seeds
-        //vSeeds.push_back(CDNSSeedData("cryptocoderz.com",  "esp.cryptocoderz.com"));
+        //vSeeds.push_back(CDNSSeedData("name",  "address"));
 
         convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
 
-        // Initial block spacing, attempted 40 second block time
-        nTargetSpacing = 1 * 40;
-        // Block rate reduced for ~40 Second block times
-        // Due to hybrid mining blocktime still varied wildly during
-        // this time between 15 seconds and 1 minute
-        if(nBestHeight > nBlocktimeregress)
-            nTargetSpacing = 2.5 * 60;
-        // Block rate reduced for 3-5 Minute block times
-        // this is in conjunction with DGW-v3 retarget fork
-        if(nBestHeight > nGravityFork)
-            nTargetSpacing = BLOCK_SPACING * 1;
-        nTargetTimespan = 10 * nTargetSpacing;
-        nStartPoSBlock = 80; // Delay PoS start until swap start
+        nStartPoSBlock = 5; // Buffer 5 blocks
 
     }
 
@@ -150,29 +138,29 @@ public:
         pchMessageStart[1] = 0x36;
         pchMessageStart[2] = 0x78;
         pchMessageStart[3] = 0x3a;
-        bnProofOfWorkLimit = CBigNum(~uint256(0) >> 16);
-        bnProofOfStakeLimit = CBigNum(~uint256(0) >> 16);
+        bnProofOfWorkLimit = CBigNum(~uint256(0) >> 14);
+        bnProofOfStakeLimit = CBigNum(~uint256(0) >> 14);
 
         vAlertPubKey = ParseHex("01a22531e96c9056be6b123561a94fbfebeb5d5257fe044b88695c62f7c2f81f85d131a669df3be611393f45485457698c6314bba5ca3cbe5616262db3d4a6efac");
-        nDefaultPort = 22019; // Hong Kong Protests
+        nDefaultPort = 92019; // When China Uncensored was started
         nRPCPort = 30620; // 30^th day of June, 2020 we all know what happened on this date.
         strDataDir = "testnet";
 
         // Modify the testnet genesis block so the timestamp is valid for a later start.
         genesis.nBits  = bnProofOfWorkLimit.GetCompact();
-        genesis.nNonce = 0;
+        genesis.nNonce = 8933;
 
         /** Genesis Block TestNet */
         /*
-        Hashed Testnet Genesis Block Output
-        block.hashMerkleRoot == cb39b483854e186064521b110b88a59ef273902f5dbc6f8dc0ed9e9982d285f4
-        block.nTime = 1597839206
-        block.nNonce = 140804
-        block.GetHash = 0000d84ce949ea2f89cff1ca3feb95f41ad0cc8d00f6f240879d91a865732c24
+        Hashed TestNet Genesis Block Output
+        block.hashMerkleRoot == 456f2990431d2819e9c99a7bf13143c442d9fee2407cda3628ce77c6b096577f
+        block.nTime = 1608156000
+        block.nNonce = 8933
+        block.GetHash = 00021da437ad4a48f9d843636dfdbef8c1de1364ada0b88dc91bd0b39cc0f801
         */
 
         hashGenesisBlock = genesis.GetHash();
-        assert(hashGenesisBlock == uint256("0x"));
+        assert(hashGenesisBlock == uint256("0x00021da437ad4a48f9d843636dfdbef8c1de1364ada0b88dc91bd0b39cc0f801"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
@@ -194,7 +182,6 @@ public:
 
         convertSeed6(vFixedSeeds, pnSeed6_test, ARRAYLEN(pnSeed6_test));
 
-        nTargetSpacing = 20;
         nStartPoSBlock = 3;
     }
     virtual Network NetworkID() const { return CChainParams::TESTNET; }
@@ -222,14 +209,14 @@ public:
 
         /** Genesis Block TestNet */
         /*
-Hashed RegNet Genesis Block Output
-block.hashMerkleRoot == cb39b483854e186064521b110b88a59ef273902f5dbc6f8dc0ed9e9982d285f4
-block.nTime = 1473059000
-block.nNonce = 8
-block.GetHash = e1471b2fbe13d5283e84618359ad3a871a5358452921c156e29620f6142cc4a5
+        Hashed RegNet Genesis Block Output
+        block.hashMerkleRoot == 456f2990431d2819e9c99a7bf13143c442d9fee2407cda3628ce77c6b096577f
+        block.nTime = 1608156000
+        block.nNonce = 8
+        block.GetHash = 12ad4011deba905cf67a8027cddf750c97aefc32dc421018980e0280b8cc8bfc
         */
 
-        assert(hashGenesisBlock == uint256("0x"));
+        assert(hashGenesisBlock == uint256("0x12ad4011deba905cf67a8027cddf750c97aefc32dc421018980e0280b8cc8bfc"));
 
         vSeeds.clear();  // Regtest mode doesn't have any DNS seeds.
     }

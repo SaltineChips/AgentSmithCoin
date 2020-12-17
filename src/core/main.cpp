@@ -967,7 +967,7 @@ int CMerkleTx::GetBlocksToMaturity() const
 {
     if (!(IsCoinBase() || IsCoinStake()))
         return 0;
-    return max(0, (nCoinbaseMaturity+30) - GetDepthInMainChain());
+    return max(0, (nCoinbaseMaturity+10) - GetDepthInMainChain());
 }
 
 
@@ -1542,7 +1542,7 @@ bool CBlock::ConnectBlock(CTxDB& txdb, CBlockIndex* pindex, bool fJustCheck)
     int64_t nStakeReward = 0;
     unsigned int nSigOps = 0;
 
-    if(nBestHeight > sysUpgrade_01)
+    if(nBestHeight > 50)
     {
         MAX_BLOCK_SIZE = BlockSizeCalculator::ComputeBlockSize(pindex);
         MAX_BLOCK_SIGOPS = MAX_BLOCK_SIZE/50;

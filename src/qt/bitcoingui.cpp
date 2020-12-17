@@ -24,10 +24,7 @@
 #include "addresstablemodel.h"
 #include "transactionview.h"
 #include "overviewpage.h"
-#include "clientcontrolpage.h"
 #include "blockbrowser.h"
-#include "siteonchain.h"
-#include "messagepage.h"
 #include "bitcoinunits.h"
 #include "guiconstants.h"
 #include "askpassphrasedialog.h"
@@ -135,13 +132,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
 
     sendCoinsPage = new SendCoinsDialog(this);
 
-    clientcontrolPage = new ClientControlPage(this);
-
-    messagePage = new MessagePage(this);
-
     blockbrowser = new BlockBrowser();
-
-    siteonChain = new SiteOnChain(this);
 
     signVerifyMessageDialog = new SignVerifyMessageDialog(this);
 
@@ -152,10 +143,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     centralStackedWidget->addWidget(addressBookPage);
     centralStackedWidget->addWidget(receiveCoinsPage);
     centralStackedWidget->addWidget(sendCoinsPage);
-    centralStackedWidget->addWidget(clientcontrolPage);
-    centralStackedWidget->addWidget(messagePage);
     centralStackedWidget->addWidget(blockbrowser);
-    centralStackedWidget->addWidget(siteonChain);
 
     QWidget *centralWidget = new QWidget();
     QVBoxLayout *centralLayout = new QVBoxLayout(centralWidget);
@@ -293,29 +281,11 @@ void BitcoinGUI::createActions()
     addressBookAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_5));
     tabGroup->addAction(addressBookAction);
 
-    clientcontrolAction = new QAction(QIcon(":/icons/ccs"), tr("&C.C.S."), this);
-    clientcontrolAction->setToolTip(tr("Client control and management Page"));
-    clientcontrolAction->setCheckable(true);
-    clientcontrolAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_6));
-    tabGroup->addAction(clientcontrolAction);
-
-    messageAction = new QAction(QIcon(":/icons/messaging"), tr("&Messaging"), this);
-    messageAction->setToolTip(tr("AgentSmithCoin secure messaging page"));
-    messageAction->setCheckable(true);
-    messageAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
-    tabGroup->addAction(messageAction);
-
     blockbrowserAction = new QAction(QIcon(":/icons/chaininfo"), tr("&Chain Info"), this);
     blockbrowserAction->setToolTip(tr("Browse and access block details of the AgentSmithCoin chain"));
     blockbrowserAction->setCheckable(true);
     blockbrowserAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_8));
     tabGroup->addAction(blockbrowserAction);
-
-    siteonChainAction = new QAction(QIcon(":/icons/sitechain"), tr("&SiteOnChain"), this);
-    siteonChainAction->setToolTip(tr("AgentSmithCoin Site on Blockchain (Websites on the Chain)"));
-    siteonChainAction->setCheckable(true);
-    siteonChainAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_9));
-    tabGroup->addAction(siteonChainAction);
 
     showBackupsAction = new QAction(QIcon(":/icons/browse"), tr("Show Auto&Backups"), this);
     showBackupsAction->setStatusTip(tr("S"));
@@ -330,14 +300,8 @@ void BitcoinGUI::createActions()
     connect(historyAction, SIGNAL(triggered()), this, SLOT(gotoHistoryPage()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(addressBookAction, SIGNAL(triggered()), this, SLOT(gotoAddressBookPage()));
-    connect(clientcontrolAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    connect(clientcontrolAction, SIGNAL(triggered()), this, SLOT(gotoClientControlPage()));
-    connect(messageAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    connect(messageAction, SIGNAL(triggered()), this, SLOT(gotoMessagePage()));
     connect(blockbrowserAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(blockbrowserAction, SIGNAL(triggered()), this, SLOT(gotoBlockBrowser()));
-    connect(siteonChainAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
-    connect(siteonChainAction, SIGNAL(triggered()), this, SLOT(gotoSiteOnChain()));
 
     quitAction = new QAction(QIcon(":icons/quit"), tr("E&xit"), this);
     quitAction->setToolTip(tr("Quit application"));
@@ -449,7 +413,7 @@ void BitcoinGUI::createToolBars()
     toolbar->setToolButtonStyle(Qt::ToolButtonTextBesideIcon);
     toolbar->setContextMenuPolicy(Qt::PreventContextMenu);
     toolbar->setObjectName("tabs");
-    toolbar->setStyleSheet("QToolButton { color: #ffffff; font-weight:bold;} QToolButton:hover { background-color: #3CB0E8 } QToolButton:checked { background-color: #164356 } QToolButton:pressed { background-color: #990000 } #tabs { color: #ffffff; background-color: qradialgradient(cx: -0.8, cy: 0, fx: -0.8, fy: 0, radius: 0.6, stop: 0 #499bea, stop: 1 #207ce5); border: none }");
+    toolbar->setStyleSheet("QToolButton { backgroung-color: #bf7d1c; color: #ffffff; font-weight:bold;} QToolButton:hover { background-color: #bf7d4c } QToolButton:checked { background-color: #bf7d8c } QToolButton:pressed { background-color: #bf9d1c } #tabs { color: #ffffff; background-color: qradialgradient(cx: -0.8, cy: 0, fx: -0.8, fy: 0, radius: 0.6, stop: 0 #bf7d1c, stop: 1 #bf7d4c); border: none }");
 	toolbar->setIconSize(QSize(24,24));
 	
     QLabel* header = new QLabel();
@@ -465,10 +429,7 @@ void BitcoinGUI::createToolBars()
     toolbar->addAction(sendCoinsAction);
     toolbar->addAction(historyAction);
     toolbar->addAction(addressBookAction);
-    toolbar->addAction(clientcontrolAction);
-    toolbar->addAction(messageAction);
     toolbar->addAction(blockbrowserAction);
-    toolbar->addAction(siteonChainAction);
 
     toolbar->addWidget(makeToolBarSpacer());
 
@@ -898,37 +859,10 @@ void BitcoinGUI::gotoSendCoinsPage()
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
 
-void BitcoinGUI::gotoClientControlPage()
-{
-    clientcontrolAction->setChecked(true);
-    centralStackedWidget->setCurrentWidget(clientcontrolPage);
-
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-}
-
-void BitcoinGUI::gotoMessagePage()
-{
-    messageAction->setChecked(true);
-    centralStackedWidget->setCurrentWidget(messagePage);
-
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-}
-
 void BitcoinGUI::gotoBlockBrowser()
 {
     blockbrowserAction->setChecked(true);
     centralStackedWidget->setCurrentWidget(blockbrowser);
-
-    exportAction->setEnabled(false);
-    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-}
-
-void BitcoinGUI::gotoSiteOnChain()
-{
-    siteonChainAction->setChecked(true);
-    centralStackedWidget->setCurrentWidget(siteonChain);
 
     exportAction->setEnabled(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
@@ -1145,7 +1079,7 @@ void BitcoinGUI::updateStakingIcon()
     {
         uint64_t nWeight = this->nWeight;
         uint64_t nNetworkWeight = GetPoSKernelPS();
-        unsigned nEstimateTime = Params().TargetSpacing() * nNetworkWeight / nWeight;
+        unsigned nEstimateTime = BLOCK_SPACING * nNetworkWeight / nWeight;
 
         QString text;
         if (nEstimateTime < 60)

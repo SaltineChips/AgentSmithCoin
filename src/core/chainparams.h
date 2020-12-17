@@ -68,9 +68,6 @@ public:
     const std::vector<unsigned char> &Base58Prefix(Base58Type type) const { return base58Prefixes[type]; }
     virtual const vector<CAddress>& FixedSeeds() const = 0;
     int RPCPort() const { return nRPCPort; }
-    int64_t TargetSpacing() const { return nTargetSpacing; }
-    int64_t TargetTimespan() const { return nTargetTimespan; }
-    int64_t AdjustmentInterval() const { return nAdjustmentInterval; }
     int StartPoSBlock() const { return nStartPoSBlock; }
 protected:
     CChainParams() {};
@@ -87,9 +84,6 @@ protected:
     string strDataDir;
     vector<CDNSSeedData> vSeeds;
     std::vector<unsigned char> base58Prefixes[MAX_BASE58_TYPES];
-    int64_t nTargetSpacing;
-    int64_t nTargetTimespan;
-    int64_t nAdjustmentInterval;
     int nStartPoSBlock;
 };
 

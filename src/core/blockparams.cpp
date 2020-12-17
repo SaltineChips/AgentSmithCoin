@@ -62,24 +62,16 @@ int64_t scantime_1 = 0;
 int64_t scantime_2 = 0;
 int64_t prevPoW = 0; // hybrid value
 int64_t prevPoS = 0; // hybrid value
-<<<<<<< Updated upstream
 uint64_t blkTime = 0;
-=======
-uint64_t blkTime = 0;//
->>>>>>> Stashed changes
 uint64_t cntTime = 0;
 uint64_t prvTime = 0;
 uint64_t difTime = 0;
-uint64_t hourRounds = 0;
+uint64_t minuteRounds = 0;
 uint64_t difCurve = 0;
-uint64_t debugHourRounds = 0;
+uint64_t debugminuteRounds = 0;
 uint64_t debugDifCurve = 0;
 bool fDryRun;
-<<<<<<< Updated upstream
 bool fCRVreset;
-=======
-bool fCRVreset;//
->>>>>>> Stashed changes
 const CBlockIndex* pindexPrev = 0;
 const CBlockIndex* BlockVelocityType = 0;
 CBigNum bnVelocity = 0;
@@ -106,25 +98,25 @@ void VRXswngdebug()
     LogPrintf("Time since last %s block: %u: \n",difType.c_str(),difTime);
     // Handle updated versions as well as legacy
     if(GetTime() > 0) {
-        debugHourRounds = hourRounds;
+        debugminuteRounds = minuteRounds;
         debugTerminalAverage = TerminalAverage;
         debugDifCurve = difCurve;
-        while(difTime > (debugHourRounds * 60 * 60)) {
+        while(difTime > (debugminuteRounds * 60 * 60)) {
             debugTerminalAverage /= debugDifCurve;
-            LogPrintf("diffTime%s is greater than %u Hours: %u \n",difType.c_str(),debugHourRounds,cntTime);
+            LogPrintf("diffTime%s is greater than %u Hours: %u \n",difType.c_str(),debugminuteRounds,cntTime);
             LogPrintf("Difficulty will be multiplied by: %d \n",debugTerminalAverage);
             // Break loop after 5 hours, otherwise time threshold will auto-break loop
-            if (debugHourRounds > 5){
+            if (debugminuteRounds > 5){
                 break;
             }
             debugDifCurve ++;
-            debugHourRounds ++;
+            debugminuteRounds ++;
         }
     } else {
-        if(difTime > (hourRounds+0) * 60 * 60) {LogPrintf("diffTime%s is greater than 1 Hours: %u \n",difType.c_str(),cntTime);}
-        if(difTime > (hourRounds+1) * 60 * 60) {LogPrintf("diffTime%s is greater than 2 Hours: %u \n",difType.c_str(),cntTime);}
-        if(difTime > (hourRounds+2) * 60 * 60) {LogPrintf("diffTime%s is greater than 3 Hours: %u \n",difType.c_str(),cntTime);}
-        if(difTime > (hourRounds+3) * 60 * 60) {LogPrintf("diffTime%s is greater than 4 Hours: %u \n",difType.c_str(),cntTime);}
+        if(difTime > (minuteRounds+0) * 60 * 60) {LogPrintf("diffTime%s is greater than 1 Hours: %u \n",difType.c_str(),cntTime);}
+        if(difTime > (minuteRounds+1) * 60 * 60) {LogPrintf("diffTime%s is greater than 2 Hours: %u \n",difType.c_str(),cntTime);}
+        if(difTime > (minuteRounds+2) * 60 * 60) {LogPrintf("diffTime%s is greater than 3 Hours: %u \n",difType.c_str(),cntTime);}
+        if(difTime > (minuteRounds+3) * 60 * 60) {LogPrintf("diffTime%s is greater than 4 Hours: %u \n",difType.c_str(),cntTime);}
     }
     return;
 }
@@ -236,17 +228,11 @@ void VRX_BaseEngine(const CBlockIndex* pindexLast, bool fProofOfStake)
            // Log hybrid block type
            //
            // v1.0
-           if(pindexBest->GetBlockTime() < SWING_PATCH) // ON (TOGGLED Nov/01/2017)
-           {
-                if     (fProofOfStake) prevPoS ++;
-                else if(!fProofOfStake) prevPoW ++;
-           }
+           if     (fProofOfStake) prevPoS ++;
+           else if(!fProofOfStake) prevPoW ++;
            // v1.1
-           if(pindexBest->GetBlockTime() > SWING_PATCH) // ON (TOGGLED Nov/01/2017)
-           {
-               if(pindexPrev->IsProofOfStake()) { prevPoS ++; }
-               else if(pindexPrev->IsProofOfWork()) { prevPoW ++; }
-           }
+           if(pindexPrev->IsProofOfStake()) { prevPoS ++; }
+           else if(pindexPrev->IsProofOfWork()) { prevPoW ++; }
 
            // move up per scan round
            scanblocks ++;
@@ -280,62 +266,54 @@ void VRX_ThreadCurve(const CBlockIndex* pindexLast, bool fProofOfStake)
 
     // Version 1.0
     //
-    int64_t nNow = nBestHeight; int64_t nThen = sysUpgrade_01; // Toggle skew system fork
-    if(nNow > nThen){if(prevPoW < prevPoS && !fProofOfStake){if((prevPoS-prevPoW) > 3) TerminalAverage /= 3;}
+    if(prevPoW < prevPoS && !fProofOfStake){if((prevPoS-prevPoW) > 3) TerminalAverage /= 3;}
     else if(prevPoW > prevPoS && fProofOfStake){if((prevPoW-prevPoS) > 3) TerminalAverage /= 3;}
-    if(TerminalAverage < 0.5) TerminalAverage = 0.5;} // limit skew to halving
+    if(TerminalAverage < 0.5) TerminalAverage = 0.5; // limit skew to halving
 
     // Version 1.1 curve-patch
     //
-    if(pindexBest->GetBlockTime() > SWING_PATCH) // ON (TOGGLED Nov/01/2017)
-    {
-        // Define time values
-        blkTime = pindexLast->GetBlockTime();
-        cntTime = BlockVelocityType->GetBlockTime();
-        prvTime = BlockVelocityType->pprev->GetBlockTime();
-        difTime = cntTime - prvTime;
-        hourRounds = 1;
-        difCurve = 2;
-        fCRVreset = false;
+    // Define time values
+    blkTime = pindexLast->GetBlockTime();
+    cntTime = BlockVelocityType->GetBlockTime();
+    prvTime = BlockVelocityType->pprev->GetBlockTime();
+    difTime = cntTime - prvTime;
+    minuteRounds = 10;
+    difCurve = 2;
+    fCRVreset = false;
 
-        // Debug print toggle
-        if(fProofOfStake) {
-            difType = "PoS";
-        } else {
-            difType = "PoW";
-        }
-        if(fDebug) VRXswngdebug();
+    // Debug print toggle
+    if(fProofOfStake) {
+        difType = "PoS";
+    } else {
+        difType = "PoW";
+    }
+    if(fDebug) VRXswngdebug();
 
-        // Version 1.2 Extended Curve Run Upgrade
-<<<<<<< Updated upstream
-        if(pindexLast->nHeight+1 >= nLiveForkToggle && nLiveForkToggle != 0) {
-=======
-        if(pindexLast->nHeight+1 >= 100) {// nLiveForkToggle && nLiveForkToggle != 0
->>>>>>> Stashed changes
-            // Set unbiased comparison
-            difTime = blkTime - cntTime;
-            // Run Curve
-            while(difTime > (hourRounds * 60 * 60)) {
-                // Break loop after 5 hours, otherwise time threshold will auto-break loop
-                if (hourRounds > 5){
-                    fCRVreset = true;
-                    break;
-                }
-                // Drop difficulty per round
-                TerminalAverage /= difCurve;
-                // Simulate retarget for sanity
-                VRX_Simulate_Retarget();
-                // Increase Curve per round
-                difCurve ++;
-                // Move up an hour per round
-                hourRounds ++;
+    // Version 1.2 Extended Curve Run Upgrade
+    if(pindexLast->nHeight+1 >= 100) {// nLiveForkToggle && nLiveForkToggle != 0
+        // Set unbiased comparison
+        difTime = blkTime - cntTime;
+        // Run Curve
+        while(difTime > (minuteRounds * 60)) {
+            // Break loop after 15 minutes, otherwise time threshold will auto-break loop
+            if (minuteRounds > 15){
+                fCRVreset = true;
+                break;
             }
-        } else {// Version 1.1 Standard Curve Run
-            if(difTime > (hourRounds+0) * 60 * 60) { TerminalAverage /= difCurve; }
-            if(difTime > (hourRounds+1) * 60 * 60) { TerminalAverage /= difCurve; }
-            if(difTime > (hourRounds+2) * 60 * 60) { TerminalAverage /= difCurve; }
-            if(difTime > (hourRounds+3) * 60 * 60) { TerminalAverage /= difCurve; }
+            // Drop difficulty per round
+            TerminalAverage /= difCurve;
+            // Simulate retarget for sanity
+            VRX_Simulate_Retarget();
+            // Increase Curve per round
+            difCurve ++;
+            // Move up an hour per round
+            minuteRounds ++;
         }
+    } else {// Version 1.1 Standard Curve Run
+            if(difTime > (minuteRounds+0) * 60) { TerminalAverage /= difCurve; }
+            if(difTime > (minuteRounds+1) * 60) { TerminalAverage /= difCurve; }
+            if(difTime > (minuteRounds+2) * 60) { TerminalAverage /= difCurve; }
+            if(difTime > (minuteRounds+3) * 60) { TerminalAverage /= difCurve; }
     }
     return;
 }
@@ -441,7 +419,10 @@ int64_t GetProofOfWorkReward(int64_t nHeight, int64_t nFees)
     }
     if(nHeight > nReservePhaseStart) {
         if(pindexBest->nMoneySupply < (nBlockRewardReserve * nReservePhaseEnd)) {
-            nSubsidy = nBlockRewardReserve;
+            if(nHeight <= 40)
+                nSubsidy = nBlockRewardReserve;
+            else
+                nSubsidy = 671999 * COIN;
         }
     }
     // hardCap v2.1
@@ -461,6 +442,16 @@ int64_t GetProofOfWorkReward(int64_t nHeight, int64_t nFees)
 int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
 {
     int64_t nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8);
+
+    if(pindexBest->nHeight > nReservePhaseStart) {
+        if(pindexBest->nMoneySupply < (nBlockRewardReserve * nReservePhaseEnd)) {
+            if(pindexBest->nHeight <= 40)
+                nSubsidy = nBlockRewardReserve;
+            else
+                nSubsidy = 671999 * COIN;
+        }
+    }
+
     // hardCap v2.1
     else if(pindexBest->nMoneySupply > MAX_SINGLE_TX)
     {
