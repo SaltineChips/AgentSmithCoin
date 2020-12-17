@@ -62,11 +62,7 @@ int64_t scantime_1 = 0;
 int64_t scantime_2 = 0;
 int64_t prevPoW = 0; // hybrid value
 int64_t prevPoS = 0; // hybrid value
-<<<<<<< Updated upstream
 uint64_t blkTime = 0;
-=======
-uint64_t blkTime = 0;//
->>>>>>> Stashed changes
 uint64_t cntTime = 0;
 uint64_t prvTime = 0;
 uint64_t difTime = 0;
@@ -75,11 +71,7 @@ uint64_t difCurve = 0;
 uint64_t debugHourRounds = 0;
 uint64_t debugDifCurve = 0;
 bool fDryRun;
-<<<<<<< Updated upstream
 bool fCRVreset;
-=======
-bool fCRVreset;//
->>>>>>> Stashed changes
 const CBlockIndex* pindexPrev = 0;
 const CBlockIndex* BlockVelocityType = 0;
 CBigNum bnVelocity = 0;
@@ -307,11 +299,7 @@ void VRX_ThreadCurve(const CBlockIndex* pindexLast, bool fProofOfStake)
         if(fDebug) VRXswngdebug();
 
         // Version 1.2 Extended Curve Run Upgrade
-<<<<<<< Updated upstream
-        if(pindexLast->nHeight+1 >= nLiveForkToggle && nLiveForkToggle != 0) {
-=======
         if(pindexLast->nHeight+1 >= 100) {// nLiveForkToggle && nLiveForkToggle != 0
->>>>>>> Stashed changes
             // Set unbiased comparison
             difTime = blkTime - cntTime;
             // Run Curve
@@ -461,6 +449,13 @@ int64_t GetProofOfWorkReward(int64_t nHeight, int64_t nFees)
 int64_t GetProofOfStakeReward(int64_t nCoinAge, int64_t nFees)
 {
     int64_t nSubsidy = nCoinAge * COIN_YEAR_REWARD * 33 / (365 * 33 + 8);
+
+    if(pindexBest->nHeight > nReservePhaseStart) {
+        if(pindexBest->nMoneySupply < (nBlockRewardReserve * nReservePhaseEnd)) {
+            nSubsidy = nBlockRewardReserve;
+        }
+    }
+
     // hardCap v2.1
     else if(pindexBest->nMoneySupply > MAX_SINGLE_TX)
     {
